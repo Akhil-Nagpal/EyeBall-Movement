@@ -1,6 +1,5 @@
 import { useState } from 'react'
 
-import './App.css'
 import Eyes from './Eyes'
 
 function App() {
