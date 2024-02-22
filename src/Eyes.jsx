@@ -1,69 +1,55 @@
-import React, { useEffect, useState } from 'react'
-import BackgroundImage from "./assets/bg.png"
+import { useState, useRef, useEffect } from 'react'
+import './App.scss'
 
-function Eyes() {
+function App() {
 
-  const [rotate, setRotate] = useState(0)
+  const [mouse, setMouse] = useState({ x: 0, y: 0 });
+
+  const eyeLeft = useRef()
+  const eyeRight = useRef()
+
+
+  function Angle(element) {
+    if (!element.current) return;
+
+    let elementX = element.current.offsetLeft + element.current.clientWidth / 2;
+    let elementY = element.current.offsetTop + element.current.clientHeight / 2;
+
+    const radians = Math.atan2(mouse.y - elementY, mouse.x - elementX);
+    const angle = radians * (180 / Math.PI);
+    console.log(angle);
+    return angle - 170;
+  }
+
+  const getMouse = (e) => {
+    setMouse({ x: e.clientX, y: e.clientY })
+  }
 
   useEffect(() => {
-    const handleMouseMove = (e) => {
-      const mouseX = e.clientX;
-      const mouseY = e.clientY;
-
-      const deltaX = mouseX - window.innerWidth / 2;
-      const deltaY = mouseY - window.innerHeight / 2;
-
-      const angle = Math.atan2(deltaY, deltaX) * (180 / Math.PI);
-      setRotate(angle - 180);
-    };
-
-    window.addEventListener("mousemove", handleMouseMove);
+    window.addEventListener('mousemove', getMouse);
 
     return () => {
-      window.removeEventListener("mousemove", handleMouseMove);
-    };
-  }, []);
+      window.removeEventListener('mousemove', getMouse);
+    }
 
+  }, [mouse])
 
   return (
-    <div className='eyes w-full h-screen overflow-hidden'>
+    <div className='eyeContainer'>
 
-      <img src={BackgroundImage} className='relative w-full h-screen bg-cover bg-center' />
-
-      <div className='absolute flex gap-10 z-10 top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 '>
-
-        <div className=' flex items-center justify-center w-[15vw] h-[15vw] rounded-full bg-zinc-100'>
-
-          <div className=' w-2/3 h-2/3 rounded-full bg-zinc-900 relative'>
-
-            <div
-              style={{ transform: `translate(-50%, -50%) rotate(${rotate}deg)` }}
-              className='line absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-full h-6'>
-
-              <div className='bg-zinc-100 w-6 h-6 rounded-full '></div>
-
-            </div>
-          </div>
-
-        </div>
-
-        <div className=' flex items-center justify-center w-[15vw] h-[15vw] rounded-full bg-zinc-100'>
-
-          <div className='  relative w-2/3 h-2/3 rounded-full bg-zinc-900 '>
-
-            <div
-              style={{ transform: `translate(-50%, -50%) rotate(${rotate}deg)` }}
-              className='line absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-full h-6'>
-
-              <div className='bg-zinc-100 w-6 h-6 rounded-full '></div>
-
-            </div>
-
-          </div>
-        </div>
+      <div className="eyeLeft"
+        ref={eyeLeft}
+        style={{ transform: `rotate(${Angle(eyeLeft)}deg)` }}>
+        <div className="lens"></div>
+      </div>
+      <div className="eyeRight"
+        ref={eyeRight}
+        style={{ transform: `rotate(${Angle(eyeRight)}deg)` }}>
+        <div className="lens"></div>
       </div>
     </div>
+
   )
 }
 
-export default Eyes
+export default App
