@@ -26,10 +26,10 @@ function App() {
   }
 
   useEffect(() => {
-    window.addEventListener('mousemove', getMouse);
+    document.addEventListener('mousemove', getMouse);
 
     return () => {
-      window.removeEventListener('mousemove', getMouse);
+      document.removeEventListener('mousemove', getMouse);
     }
 
   }, [mouse])
