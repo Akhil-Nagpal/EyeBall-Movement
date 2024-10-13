@@ -18,7 +18,7 @@ function App() {
     const radians = Math.atan2(mouse.y - elementY, mouse.x - elementX);
     const angle = radians * (180 / Math.PI);
 
-    return angle ;
+    return angle - 177 ;
   }
 
   const getMouse = (e) => {
@@ -37,12 +37,12 @@ function App() {
   return (
     <div className='eyeContainer'>
 
-      <div className="eyeLeft border-2 border-dashed border-red-500"
+      <div className="eyeLeft"
         ref={eyeLeft}
         style={{ transform: `rotate(${Angle(eyeLeft)}deg)` }}>
         <div className="lens"></div>
       </div>
-      <div className="eyeRight border-2 border-dashed border-red-500"
+      <div className="eyeRight"
         ref={eyeRight}
         style={{ transform: `rotate(${Angle(eyeRight)}deg)` }}>
         <div className="lens"></div>
