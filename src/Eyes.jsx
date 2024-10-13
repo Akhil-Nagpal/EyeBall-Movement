@@ -37,12 +37,12 @@ function App() {
   return (
     <div className='eyeContainer'>
 
-      <div className="eyeLeft"
+      <div className="eyeLeft border-2 border-dashed border-red-500"
         ref={eyeLeft}
         style={{ transform: `rotate(${Angle(eyeLeft)}deg)` }}>
         <div className="lens"></div>
       </div>
-      <div className="eyeRight"
+      <div className="eyeRight border-2 border-dashed border-red-500"
         ref={eyeRight}
         style={{ transform: `rotate(${Angle(eyeRight)}deg)` }}>
         <div className="lens"></div>
