@@ -18,7 +18,7 @@ function App() {
     const radians = Math.atan2(mouse.y - elementY, mouse.x - elementX);
     const angle = radians * (180 / Math.PI);
 
-    return angle - 177;
+    return angle ;
   }
 
   const getMouse = (e) => {
